@@ -1,6 +1,7 @@
 package JavaTrails;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ListDuplicacy {
     List<Integer> test = new ArrayList();
@@ -16,6 +17,7 @@ public class ListDuplicacy {
         ld.test.add(4);
 
         long count = ld.test.stream().distinct().count();
+        List<Integer> ditinctList = ld.test.stream().distinct().toList();
 
         if(count < ld.test.size()){
             ld.test.stream().filter(d -> Collections.frequency(ld.test,d)>1).distinct().forEach(System.out::println);
