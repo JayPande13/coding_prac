@@ -3,6 +3,7 @@ package DataStructure;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 public class HashMapImpl {
@@ -19,12 +20,12 @@ public class HashMapImpl {
         private int n;
         private int N;
         private double k;
-        private LinkedList<Node> buckets[];
+        private LinkedList<Node>[] buckets;
 
         @SuppressWarnings("unchecked")
         public HashMap(){
             this.N =4;
-            this.buckets =  new LinkedList[4];
+            this.buckets =  new LinkedList[N];
             for(int i=0;i<N;i++){
                 this.buckets[i] = new LinkedList<>();
             }
@@ -151,5 +152,6 @@ public class HashMapImpl {
 
         hm.remove("India");
         System.out.println(hm.get("India"));
+
     }
 }

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class copyOnwriteArray {
+
     public static void main(String[] args) {
         CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
         list.add("Apple");
@@ -20,6 +21,7 @@ public class copyOnwriteArray {
         }
     }
 }
+
 
 // Why you’re seeing “Apple” and “Banana” as output and not “Cherry”:
 //
