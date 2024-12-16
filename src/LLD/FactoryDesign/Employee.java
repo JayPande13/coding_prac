@@ -1,7 +1,5 @@
-package LLD;
+package LLD.FactoryDesign;
 
 public abstract class Employee {
-    Employee(){
-
-    }
+  public abstract Integer getSalary();
 }

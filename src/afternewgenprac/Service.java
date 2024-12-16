@@ -1,16 +1,17 @@
 package afternewgenprac;
 
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Service {
     public static void main(String[] args) {
-        try (ExecutorService service = Executors.newCachedThreadPool()) {
-            for (int i = 0; i < 10; i++) {
-                service.execute(new Task(i));
-                service.execute(new Task2(i));
-            }
-        }
+//        try (ExecutorService service = Executors.newCachedThreadPool()) {
+//            for (int i = 0; i < 10; i++) {
+//                service.execute(new Task(i));
+//                service.execute(new Task2(i));
+//            }
+//        }
     }
 
     static class Task implements Runnable {
