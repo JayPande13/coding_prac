@@ -63,6 +63,7 @@ public class streamQuestions {
         CustomComparator customComparator = streamQuestions.new CustomComparator();
 
         Optional<Integer> max = list.stream().max(customComparator);
+        Optional<Integer> max2 = list.stream().max(new streamQuestions().new CustomComparator());
 
         System.out.println("minAndMaxUsingCustomComparator Max : " + max.get());
     }

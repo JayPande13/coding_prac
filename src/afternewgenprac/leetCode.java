@@ -2,6 +2,7 @@ package afternewgenprac;
 
 public class leetCode {
 
+    // Reverse Integer - https://leetcode.com/problems/reverse-integer/description/
     public static int reverseInteger(int input){
         long reversedNumber = 0;
         while(input != 0){
