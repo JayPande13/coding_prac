@@ -3,6 +3,7 @@ package Arrays;
 import java.lang.reflect.GenericArrayType;
 import java.sql.Array;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class arrayQues  implements Comparator<Integer> {
 
@@ -28,6 +29,7 @@ public class arrayQues  implements Comparator<Integer> {
 
     public int minimumValueInArray(int[] arr) {
         int minimum = arr[0];
+        Optional<Integer> minusingStream ;
         int i = 1;
         while(i<arr.length){
             if(minimum >arr[i]){
@@ -35,6 +37,8 @@ public class arrayQues  implements Comparator<Integer> {
             }
             i++;
         }
+        minusingStream = Arrays.stream(arr).boxed().min(Integer::compare);
+        System.out.println(minusingStream.get());
         return minimum;
     }
 
@@ -50,6 +54,8 @@ public class arrayQues  implements Comparator<Integer> {
             }
             i++;
         }
+        Optional<Integer> secondMinimumStream = Arrays.stream(arr).boxed().sorted(Integer::compare).skip(1).findFirst();
+        System.out.println(secondMinimumStream.get());
         return  secondMinimum;
     }
 
@@ -67,6 +73,12 @@ public class arrayQues  implements Comparator<Integer> {
 
             i++;
         }
+
+//        Optional<Integer> secondmaxStream = Arrays.stream(arr).boxed().sorted(Comparator.reverseOrder()).skip(1).findFirst();
+//        System.out.println(secondmaxStream.get());
+        String input ="ABCD CDRT";
+        String newString = input.chars().mapToObj(c->(char) c).collect(Collectors.toList()).reversed().stream().map(c -> String.valueOf(c)).collect(Collectors.joining());
+        System.out.println(newString + "dsfgadsfdsa");
         return secMax;
     }
 
@@ -95,8 +107,9 @@ public class arrayQues  implements Comparator<Integer> {
         int resultValue =  ar.minimumValueInArray(resultingArray);
 //        System.out.printf("minimumValueInArray(arr)  " +  resultValue + "\n");
         int secondMinimum = secondMinimumValueInArray(resultingArray);
+//        System.out.println(secondMinimum + "sodsfsdf");
         int secmax = secondMaxValue(resultingArray);
-//        System.out.printf("secondMinimumValueInArray(arr)  " +  secmax + "\n");
+        System.out.printf("secondMinimumValueInArray(arr)  " +  secmax + "\n");
 
         List<Integer> list = new ArrayList<>();
         list.add(1);
@@ -104,7 +117,7 @@ public class arrayQues  implements Comparator<Integer> {
         list.add(3);
         list.add(4);
         Optional<Integer> res = list.stream().max(new arrayQues());
-        System.out.println(res.get());
+//        System.out.println(res.get());
 
     }
 

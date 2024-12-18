@@ -1,5 +1,6 @@
 package CodingQuestions;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MainCollection {
 
@@ -19,16 +20,19 @@ public class MainCollection {
 
     // function to reverse a string
     public static void stringReverser(String input){
-        String newString = "";
-//        StringBuilder newString = new StringBuilder();
+//        String newString = "";
+        StringBuilder newString = new StringBuilder(input);
+        System.out.println(newString.reverse());
+//        ABCD -> 93 94 92 93 -> {'A','B','C','D'} -> ['A','B','C','D'] -> ['D','C','B','A'] -> ["D","C","B","A"]-> "DCBA"
+        String newStringt = input.chars().mapToObj(c->(char) c).collect(Collectors.toList()).reversed().stream().map(c -> String.valueOf(c)).collect(Collectors.joining());
         char[] inputCharaters = input.toCharArray();
-        System.out.println(inputCharaters);
-        for(int i= input.length()-1;i>=0;i--){
-            newString = newString + input.charAt(i);
-//             char ch = inputCharaters[i-1];
-//            newString.append(ch);
-
-        }
+//        System.out.println(inputCharaters);
+//        for(int i= input.length()-1;i>=0;i--){
+//            newString = newString + input.charAt(i);
+////             char ch = inputCharaters[i-1];
+////            newString.append(ch);
+//
+//        }
         System.out.println(newString);
     }
 

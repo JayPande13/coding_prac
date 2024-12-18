@@ -20,6 +20,8 @@ public class fibonacci {
 
     }
 
+
+
     public static void fibonacci(int length){
         int a =0;
         int b =1;
@@ -33,4 +35,6 @@ public class fibonacci {
             length --;
         }
     }
+
+
 }

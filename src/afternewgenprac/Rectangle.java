@@ -4,6 +4,21 @@ public class Rectangle {
     int length;
     int breadth;
 
+
+    // Overriding equals and hashcode method.
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this) return  true;
+        if(obj== null||obj.getClass() != this.getClass()) return false;
+        Rectangle rectangle = (Rectangle) obj;
+        return rectangle.length == this.length && rectangle.breadth == this.breadth;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) (Math.random() * 2);
+    }
+
     public Rectangle() {}
 
     public Rectangle(int length, int breadth) {
@@ -30,7 +45,7 @@ public class Rectangle {
     public static void main(String[] args) {
         Rectangle R1 = new Rectangle();
         R1.length=10;
-        RectangleModify(new Rectangle(R1));
+        RectangleModify(R1);
 //        System.out.println(R1.length);
     }
 }

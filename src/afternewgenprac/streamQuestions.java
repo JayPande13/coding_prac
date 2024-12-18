@@ -1,8 +1,10 @@
 package afternewgenprac;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class streamQuestions {
 
@@ -33,8 +35,9 @@ public class streamQuestions {
         list.add(3);
         list.add(4);
 
-        Optional<Integer> Max = list.stream().max(Integer::compareTo);
-        Optional<Integer> Min = list.stream().min(Integer::compareTo);
+        Optional<Integer> Max = list.stream().max((a,b) -> Integer.compare(a,b));
+        Optional<Integer> Min = list.stream().min((a,b) -> Integer.compare(a,b));
+
 
         System.out.println("minAndMaxUsingStream : Max : " + Max.get());
         System.out.println("minAndMaxUsingStream : Min : " + Min.get());
@@ -103,12 +106,11 @@ public class streamQuestions {
         fruits.add("banana");
         fruits.add("pear");
 
-        fruits.stream().sorted((o1, o2) -> Integer.compare(o1.length(), o2.length())).forEach(System.out::println);
+        // If we want to reversed sorting
+        fruits.stream().sorted((o1, o2) -> Integer.compare( o2.length(),o1.length())).forEach(System.out::println);
         //or
         fruits.stream().sorted(Comparator.comparingInt(String::length)).forEach(System.out::println);
-
-        // If we want to reversed sorting
-//        fruits.stream().sorted(Comparator.comparingInt(String::length)).forEach(System.out::println);
+        fruits.stream().sorted(Comparator.comparingInt(String::length).reversed()).forEach(System.out::println);
     }
 
     static class Employee {
@@ -214,7 +216,6 @@ public class streamQuestions {
     public  static void flatMapAndMap(){
         List<Integer> mapList = List.of(1,2,3,4,5,6,6);
         List<List<Integer>> flatMapList1 = List.of(List.of(22,33,44,55,66,77,88));
-        List<List<Integer>> flatMapList2 = List.of(List.of(12,23,34,45,56,67,78));
 
         List<Integer> mapResultList =  mapList.stream().map(r-> r*3).toList();
         /**
@@ -229,6 +230,17 @@ public class streamQuestions {
 
     }
 
+    public static void findSecondLargestNumberInIntegerArray(){
+        int[] intArray = {1,2,3,4,5,6,7,33,55};
+        Optional<Integer> secondHighestNumber = Arrays.stream(intArray).boxed().sorted(Comparator.reverseOrder()).skip(1).findFirst();
+        secondHighestNumber.ifPresent(System.out::println);
+
+        // fetching 2nd Largest if not distinct
+        int[] intArray2 = {1,2,3,4,5,6,7,33,55,55,53,66,54};
+        Optional<Integer> secondHighestNumberDistinct = Arrays.stream(intArray).boxed().distinct().sorted(Comparator.reverseOrder()).skip(1).findFirst();
+        secondHighestNumberDistinct.ifPresent(System.out::println);
+    }
+
 
     public static void main(String[] args) {
         sumOfNumberInList();
@@ -240,12 +252,14 @@ public class streamQuestions {
         productOfAllElementsInList();
         sortFruitOnBasisOfLengthOfFruit();
         secondHighestSalaryUsingStream();
+        printMapUsingStream();
         linkedArrayUsingIntegerArray();
         firstElementOfString();
         firstDuplicateElement();
         createFrequencyMapOfStringCharacters();
         wholeStringFrequency();
         flatMapAndMap();
+        findSecondLargestNumberInIntegerArray();
     }
 }
 
