@@ -20,7 +20,7 @@ public class HashMap<K,V> {
          int k = 2 ;// comparison constant for ReHashing
         LinkedList<Node> [] bucket; // Array of LinkedList of Type Node is bucket.
 
-        HashMap(){
+        public HashMap(){
             this.N= 4;
             this.bucket =new LinkedList[N];
             for(int i=0;i<N;i++){
