@@ -149,6 +149,8 @@ public class streamQuestions {
         );
 
         Optional<Employee> employee = employeeList.stream().sorted(Comparator.comparingInt(Employee::getAge).reversed()).skip(1).findFirst();
+        //or
+        Optional<Employee> employee2 = employeeList.stream().sorted((a,b)-> Integer.compare(b.getAge(),a.getAge())).skip(1).findFirst();
         if (employee.isPresent()) {
             System.out.println(employee.get());
         } else {
@@ -239,6 +241,27 @@ public class streamQuestions {
         int[] intArray2 = {1,2,3,4,5,6,7,33,55,55,53,66,54};
         Optional<Integer> secondHighestNumberDistinct = Arrays.stream(intArray).boxed().distinct().sorted(Comparator.reverseOrder()).skip(1).findFirst();
         secondHighestNumberDistinct.ifPresent(System.out::println);
+    }
+
+    public static void creatingArray(){
+        int[] intArray = new int[]{12,3,4,5,5};
+        int[] intArray2 = {12,3,4,5,5};
+    }
+
+    public static void creatingThreads(){
+        //1
+        Thread thread = new Thread(()->{
+            System.out.println("Jay");
+        });
+
+        //2
+        Runnable runnable = ()->{
+            System.out.println("Jay");
+        };
+        Thread thread2 = new Thread(runnable);
+
+
+
     }
 
 
