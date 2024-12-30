@@ -1,4 +1,4 @@
-package afternewgenprac;
+package afternewgenprac.Multithreading;
 
 public class MultithreadingEvenOdd {
     static int counter;

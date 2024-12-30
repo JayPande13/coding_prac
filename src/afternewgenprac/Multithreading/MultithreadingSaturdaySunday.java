@@ -1,4 +1,4 @@
-package afternewgenprac;
+package afternewgenprac.Multithreading;
 
 public class MultithreadingSaturdaySunday {
     public static Object Lock = new Object();

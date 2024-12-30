@@ -1,6 +1,6 @@
 package afternewgenprac;
 
-public abstract class Parent {
+public class Parent implements AutoCloseable {
 
     public Object speak(){
         System.out.println("testing");
@@ -9,4 +9,9 @@ public abstract class Parent {
 
     public void speak2(){}
 
+
+    @Override
+    public void close() throws Exception {
+
+    }
 }

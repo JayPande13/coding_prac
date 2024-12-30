@@ -18,4 +18,9 @@ public class Child extends Parent{
         return 0;
 
     }
+
+    @Override
+    public void close() throws Exception {
+        System.out.println("test");
+    }
 }
