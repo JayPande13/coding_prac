@@ -1,6 +1,6 @@
-package afternewgenprac;
+package afternewgenprac.DSA.basicQues;
 
-public class leetCode {
+public class ReverseInteger {
 
     // Reverse Integer - https://leetcode.com/problems/reverse-integer/description/
     public static int reverseInteger(int input){

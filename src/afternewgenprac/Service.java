@@ -24,7 +24,7 @@ public class Service {
             System.out.println("rung");
         };
 //        Stream.iterate(0, i -> i + 1).limit(10).forEach(System.out::println);\
-        Something<T> something = new Something<>(); // k--- integer
+        Something<Integer> something = new Something<>(); // k--- integer
         List<Integer> list = new ArrayList<>(); // l --- integer
         something.add(list);
     }
@@ -50,8 +50,8 @@ public class Service {
 
     }
 
-    static class Something<K extends Task2> {
-        K data;
+    static class Something<T> {
+        T data;
 
         void add(List<?> list) {
             System.out.println(3);

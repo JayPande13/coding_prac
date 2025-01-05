@@ -266,6 +266,10 @@ public class streamQuestions {
 
 
     public static void main(String[] args) {
+        String s ="        fly me   to   the moon      ";
+        s = s.replaceAll("\\s"," ").trim();
+        List<String> stringList = List.of(s.split(" "));
+        System.out.println(s.trim());
         sumOfNumberInList();
         threeEvenNumberUsingStream();
         minAndMaxUsingStream();
@@ -283,6 +287,8 @@ public class streamQuestions {
         wholeStringFrequency();
         flatMapAndMap();
         findSecondLargestNumberInIntegerArray();
+
+
     }
 }
 
