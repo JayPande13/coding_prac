@@ -1,16 +1,8 @@
 package afternewgenprac;
 
-public class JobTries {
-    public static void main(String[] args) {
-        Sample sample = new Sample();
-        sample.display();
-        sample =null;
-        sample.display();
-    }
-}
+import java.util.Arrays;
+import java.util.Comparator;
 
-class Sample{
-    public static void display(){
-        System.out.println("dummy");
-    }
+public class JobTries {
+
 }
