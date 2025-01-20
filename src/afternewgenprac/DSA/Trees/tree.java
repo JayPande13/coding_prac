@@ -8,14 +8,6 @@ import java.util.Stack;
 
 public class tree {
     TreeNode root;
-    public static class TreeNode{
-        int data;
-        TreeNode left;
-        TreeNode right;
-        public TreeNode(int data) {
-            this.data = data;
-        }
-    }
 
     public void createTree(){
         TreeNode first = new TreeNode(1);
@@ -134,6 +126,33 @@ public class tree {
         }
     }
 
+    public int RecursiveHeightOfATree(TreeNode root){
+        if(root == null) return 0;
+        int leftHeight = RecursiveHeightOfATree(root.left);
+        int rightHeight = RecursiveHeightOfATree(root.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+
+    }
+
+    public void RecursiveLevelOrder(TreeNode root,int level){
+        if(root == null) return;
+        if(level == 1){
+            System.out.print(root.data + " ");
+        }else if(level > 1){
+            RecursiveLevelOrder(root.left,level-1);
+            RecursiveLevelOrder(root.right,level-1);
+        }
+
+    }
+
+    public void RecursiveLevelOrderCallMethod(TreeNode root){
+        int height = RecursiveHeightOfATree(root);
+        for(int i = 1; i <= height; i++){
+            RecursiveLevelOrder(root,i);
+            System.out.println();
+        }
+    }
+
     public void IterativeMaximumValueInABinaryTree(TreeNode root){
         if(root == null) return;
         Queue<TreeNode> queue = new LinkedList<>();
@@ -163,8 +182,6 @@ public class tree {
     }
 
 
-
-
     public static void main(String[] args) {
         tree tree = new tree();
         tree.createTree();
@@ -177,6 +194,7 @@ public class tree {
 //        tree.IterativeLevelOrder(tree.root);
 //        tree.IterativeMaximumValueInABinaryTree(tree.root);
 //        System.out.println(tree.RecursiveMaximumValueInABinaryTree(tree.root));
+        tree.RecursiveLevelOrderCallMethod(tree.root);
     }
 
 

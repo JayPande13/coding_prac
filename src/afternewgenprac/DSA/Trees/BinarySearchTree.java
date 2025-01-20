@@ -3,35 +3,34 @@ package afternewgenprac.DSA.Trees;
 import java.util.*;
 
 public class BinarySearchTree {
-    tree.TreeNode root;
+    TreeNode root;
 
     static class Pair{
         int level;
-        tree.TreeNode next;
+        TreeNode next;
 
         public int getLevel() {
             return level;
         }
 
-        public tree.TreeNode getNext() {
+        public TreeNode getNext() {
             return next;
         }
 
-        public Pair(int level, tree.TreeNode next) {
+        public Pair(int level, TreeNode next) {
             this.level = level;
             this.next = next;
         }
     }
-
 
     public void insert(int value) {
 //        root = RecursiveInsert(root, value);
         root = IterativeInsert(root, value);
     }
 
-    public tree.TreeNode RecursiveInsert(tree.TreeNode root, int data) {
+    public TreeNode RecursiveInsert(TreeNode root, int data) {
         if (root == null) {
-            return new tree.TreeNode(data);
+            return new TreeNode(data);
         }
         if (root.data > data) {
             root.left = RecursiveInsert(root.left, data);
@@ -43,14 +42,14 @@ public class BinarySearchTree {
         // and in the next transversal only the latest added data will be printed.
     }
 
-    public tree.TreeNode IterativeInsert(tree.TreeNode root, int data) {
-        tree.TreeNode newNode = new tree.TreeNode(data);
+    public TreeNode IterativeInsert(TreeNode root, int data) {
+        TreeNode newNode = new TreeNode(data);
         if (root == null) {
             root = newNode;
             return root;
         }
-        tree.TreeNode current = root;
-        tree.TreeNode parent = root;
+        TreeNode current = root;
+        TreeNode parent = root;
         while (current != null) {
             parent = current;
             if (current.data > data) {
@@ -68,26 +67,26 @@ public class BinarySearchTree {
 
     }
 
-    public void RecursiveInOrder(tree.TreeNode root) {
+    public void RecursiveInOrder(TreeNode root) {
         if (root == null) return;
         RecursiveInOrder(root.left);
         System.out.print(root.data + " ");
         RecursiveInOrder(root.right);
     }
 
-    public void IterativeLevelOrder(tree.TreeNode root) {
+    public void IterativeLevelOrder(TreeNode root) {
         if (root == null) return;
-        Queue<tree.TreeNode> queue = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         while (!queue.isEmpty()) {
-            tree.TreeNode node = queue.poll();
+            TreeNode node = queue.poll();
             System.out.print(node.data + " ");
             if (node.left != null) queue.add(node.left);
             if (node.right != null) queue.add(node.right);
         }
     }
 
-    public tree.TreeNode RecursiveSearchInBinarySearchTree(tree.TreeNode root, int value) {
+    public TreeNode RecursiveSearchInBinarySearchTree(TreeNode root, int value) {
         if (root == null) return null;
         if (root.data == value) {
             return root;
@@ -98,9 +97,9 @@ public class BinarySearchTree {
         }
     }
 
-    public tree.TreeNode IterativeSearchInBinarySearchTree(tree.TreeNode root, int value) {
+    public TreeNode IterativeSearchInBinarySearchTree(TreeNode root, int value) {
         if (root == null) return null;
-        tree.TreeNode current = root;
+        TreeNode current = root;
         while (current != null) {
             if(current.data == value) {
                 return current;
@@ -113,11 +112,11 @@ public class BinarySearchTree {
         return null;
     }
 
-    public boolean ValidateBinarySearchTree(tree.TreeNode root) {
+    public boolean ValidateBinarySearchTree(TreeNode root) {
         return isValidBST(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
     // Important question -> For LeetCode use Long as it is using value greater than intMax in the root element.
-    public boolean isValidBST(tree.TreeNode root, int min, int max) {
+    public boolean isValidBST(TreeNode root, int min, int max) {
         if(root == null) return true;
         if(root.data <=min ||root.data>=max){
             return false;
@@ -130,14 +129,14 @@ public class BinarySearchTree {
         return right;
     }
 
-    public void leftView(tree.TreeNode root) {
+    public void leftView(TreeNode root) {
         List<Integer> returnList = new ArrayList<>();
         Map<Integer,List<Integer>> map = new HashMap<>();
         Queue<Pair> queue = new LinkedList<>();
         queue.add(new Pair(0,root));
         while (!queue.isEmpty()) {
             Pair p = queue.poll();
-            tree.TreeNode current = p.next;
+            TreeNode current = p.next;
             if(current != null) {
                 map.putIfAbsent(p.getLevel(),new ArrayList<>());
                 map.get(p.getLevel()).add(current.data);
@@ -159,14 +158,54 @@ public class BinarySearchTree {
         System.out.print(returnList);
     }
 
-    public void rightView(tree.TreeNode root) {
+    public int RecursiveHeightOfATree(TreeNode root){
+        if(root == null) return 0;
+        int leftHeight = RecursiveHeightOfATree(root.left);
+        int rightHeight = RecursiveHeightOfATree(root.right);
+        return Math.max(leftHeight, rightHeight) + 1;
+
+    }
+
+    public void leftViewListCaller(TreeNode root) {
+        List<TreeNode> leftViewList = new ArrayList<>();
+            leftViewUsingList(root,0,leftViewList);
+        for(TreeNode node : leftViewList) {
+            System.out.print(node.data + " ");
+        }
+    }
+
+    public void leftViewUsingList(TreeNode root,int level, List<TreeNode> leftViewList) {
+        if(root == null) return;
+        if(level == leftViewList.size()){
+            leftViewList.add(root);
+        }
+        leftViewUsingList(root.left,level+1,leftViewList);
+        leftViewUsingList(root.right,level+1,leftViewList);
+    }
+
+    public void rightViewListCaller(TreeNode root) {
+        Map<Integer,TreeNode> rightViewMap =new HashMap<>();
+        rightViewUsingMap(root,0,rightViewMap);
+        for(TreeNode node : rightViewMap.values()) {
+            System.out.print(node.data + " ");
+        }
+    }
+
+    public void rightViewUsingMap(TreeNode root,int level,Map<Integer,TreeNode> rightViewMap ) {
+        if(root == null) return;
+        rightViewMap.put(level,root);
+        rightViewUsingMap(root.left,level+1,rightViewMap);
+        rightViewUsingMap(root.right,level+1,rightViewMap);
+    }
+
+    public void rightView(TreeNode root) {
         Queue<Pair> queue = new LinkedList<>();
         Map<Integer,List<Integer>> map = new HashMap<>();
         ArrayList<Integer> returnList = new ArrayList<>();
         queue.add(new Pair(0,root));
         while (!queue.isEmpty()) {
             Pair p = queue.poll();
-            tree.TreeNode current = p.next;
+            TreeNode current = p.next;
             if(current != null) {
                 map.putIfAbsent(p.getLevel(),new ArrayList<>());
                 map.get(p.getLevel()).add(current.data);
@@ -188,6 +227,22 @@ public class BinarySearchTree {
         System.out.println(returnList);
     }
 
+    public boolean isBalancedTreeCaller(TreeNode root) {
+        int differenceValue = isBalancedTree(root);
+        return differenceValue <= 1;
+    }
+
+    public int isBalancedTree(TreeNode root) {
+        if(root == null) return 0;
+        int leftHeight = isBalancedTree(root.left);
+        int rightHeight = isBalancedTree(root.right);
+        return Math.abs(leftHeight - rightHeight) + 1 ;
+    }
+
+//    public TreeNode RemoveNode(TreeNode root, int val) {
+//
+//    }
+
     public static void main(String[] args) {
         BinarySearchTree bt = new BinarySearchTree();
         tree tree = new tree();
@@ -198,8 +253,9 @@ public class BinarySearchTree {
         bt.insert(4);
         bt.insert(5);
         bt.insert(6);
-        bt.IterativeLevelOrder(bt.root);
-        System.out.println();
+        bt.insert(7);
+//        bt.IterativeLevelOrder(bt.root);
+//        System.out.println();
 //        TreeNode foundNode = bt.IterativeSearchInBinarySearchTree(bt.root, 4);
 //        if (foundNode == null) {
 //            System.out.print("null");
@@ -208,8 +264,13 @@ public class BinarySearchTree {
 //        }
 //        System.out.println(bt.ValidateBinarySearchTree(bt.root));
 //        bt.leftView(bt.root);
-        bt.rightView(bt.root);
-
+//        bt.rightView(bt.root);
+//        System.out.println(bt.RecursiveHeightOfATree(bt.root));
+//        bt.leftViewListCaller(bt.root);
+//        System.out.println();
+//        bt.rightViewListCaller(bt.root);
+//        System.out.println();
+        System.out.println(bt.isBalancedTreeCaller(bt.root));
     }
 
 }

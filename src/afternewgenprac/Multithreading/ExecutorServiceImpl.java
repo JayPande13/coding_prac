@@ -2,6 +2,9 @@ package afternewgenprac.Multithreading;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class ExecutorServiceImpl {
 
     public static void main(String[] args) {
@@ -19,6 +22,15 @@ public class ExecutorServiceImpl {
             for (int i = 0; i < 100; i++) {
 //                executorService.execute(new CachedThread(i));
             }
+        }
+        try(ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2)){
+            for (int i = 0; i < 100; i++) {
+                executorService.schedule(new ScheduledThread(i),2, TimeUnit.SECONDS);
+                executorService.scheduleAtFixedRate(new ScheduledThread(i),2, 1,TimeUnit.SECONDS);
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -63,5 +75,17 @@ class CachedThread implements Runnable{
     @Override
     public void run() {
         System.out.println("This is the Cached Executor Thread executing : " + sequence + " times" + " by " + Thread.currentThread().getName());
+    }
+}
+
+class ScheduledThread implements Runnable{
+    int sequence;
+    public ScheduledThread(int sequence) {
+        this.sequence = sequence;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("This is the Scheduled Executor Thread executing : " + sequence + " times" + " by " + Thread.currentThread().getName());
     }
 }
