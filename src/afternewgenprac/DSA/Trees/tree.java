@@ -2,9 +2,7 @@ package afternewgenprac.DSA.Trees;
 
 import com.sun.source.tree.Tree;
 
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 
 public class tree {
     TreeNode root;

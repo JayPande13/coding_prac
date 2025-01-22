@@ -264,29 +264,40 @@ public class streamQuestions {
 
     }
 
+    public static void reverseStringUsingReduce(){
+        String str = "hello";
+        String reversed = str.chars().mapToObj(c -> (char) c).reduce("",(ans,a)->{
+            ans = a + ans;
+                    return ans;
+        },(ans1,ans2)-> ans1+ans2);
+
+        System.out.println("ReversedStringUsingReduce : " + reversed);
+    }
+
 
     public static void main(String[] args) {
         String s ="        fly me   to   the moon      ";
         s = s.replaceAll("\\s"," ").trim();
         List<String> stringList = List.of(s.split(" "));
-        System.out.println(s.trim());
-        sumOfNumberInList();
-        threeEvenNumberUsingStream();
-        minAndMaxUsingStream();
-        minAndMaxUsingCustomComparator();
-        distinctElementUsingStream();
-        collectDuplicateElementUsingStream();
-        productOfAllElementsInList();
-        sortFruitOnBasisOfLengthOfFruit();
-        secondHighestSalaryUsingStream();
-        printMapUsingStream();
-        linkedArrayUsingIntegerArray();
-        firstElementOfString();
-        firstDuplicateElement();
-        createFrequencyMapOfStringCharacters();
-        wholeStringFrequency();
-        flatMapAndMap();
-        findSecondLargestNumberInIntegerArray();
+//        System.out.println(s.trim());
+//        sumOfNumberInList();
+//        threeEvenNumberUsingStream();
+//        minAndMaxUsingStream();
+//        minAndMaxUsingCustomComparator();
+//        distinctElementUsingStream();
+//        collectDuplicateElementUsingStream();
+//        productOfAllElementsInList();
+//        sortFruitOnBasisOfLengthOfFruit();
+//        secondHighestSalaryUsingStream();
+//        printMapUsingStream();
+//        linkedArrayUsingIntegerArray();
+//        firstElementOfString();
+//        firstDuplicateElement();
+//        createFrequencyMapOfStringCharacters();
+//        wholeStringFrequency();
+//        flatMapAndMap();
+//        findSecondLargestNumberInIntegerArray();
+        reverseStringUsingReduce();
 
 
     }

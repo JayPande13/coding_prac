@@ -188,7 +188,7 @@ public class BinarySearchTree {
         rightViewUsingMap(root,0,rightViewMap);
         for(TreeNode node : rightViewMap.values()) {
             System.out.print(node.data + " ");
-        }
+        };
     }
 
     public void rightViewUsingMap(TreeNode root,int level,Map<Integer,TreeNode> rightViewMap ) {
