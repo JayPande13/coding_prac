@@ -4,42 +4,25 @@ import java.util.*;
 
 public class JobTries {
 
-    public static class LargestNumberByParitySwap {
-        public static String getLargestNumber(String num) {
-            if (num == null || num.length() <= 1) {
-                return num;
-            }
+    public static void main(String[] args) {
+        List<Integer> list = List.of(4,4,4,1,1,1,1, 3,3,5,5,6,6,0,10) ;
+//                Unique number in decreasing order of frequency
+//        If same number print decreasing order-note
+//        O/P - > 1,4, 6,5,3,  10,0
 
-            char[] digits = num.toCharArray();
-            int n = digits.length;
-
-            // Optimize to a single pass
-            for (int i = 0; i < n - 1; i++) {
-                int digit1 = digits[i] - '0';
-                int digit2 = digits[i + 1] - '0';
-
-                // Check if both digits have the same parity and digit1 < digit2
-                if (digit1 % 2 == digit2 % 2 && digit1 < digit2) {
-                    // Swap the digits
-                    char temp = digits[i];
-                    digits[i] = digits[i + 1];
-                    digits[i + 1] = temp;
-
-                    // Reset the pointer to recheck previous swaps
-                    if (i > 0) {
-                        i -= 2;
-                    }
-                }
-            }
-
-            return new String(digits);
+        Map<Integer, Integer > map = new HashMap<>();
+        for(Integer i : list){
+            map.put(i,map.getOrDefault(i,0)+1);
         }
 
-        public static void main(String[] args) {
-            String input = "1806579";
-            String largestValue = getLargestNumber(input);
-            System.out.println("Largest possible value: " + largestValue);
-        }
+
+         list.stream().distinct().sorted((a,b)->{
+            int f = map.get(b).compareTo(map.get(a)); // sorting in desc order on the basis of freq.
+            if(f==0){
+                return b.compareTo(a); // if freq is same it should compare on the basis of value.
+            }
+            return f;
+        }).forEach(a -> System.out.print(a + " , "));
     }
 
 }
