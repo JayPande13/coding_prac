@@ -1,4 +1,4 @@
-package afternewgenprac.DSA.Exception;
+package afternewgenprac.Exception;
 
 import java.io.IOException;
 

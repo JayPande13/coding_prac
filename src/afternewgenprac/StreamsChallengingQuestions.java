@@ -1,6 +1,8 @@
 package afternewgenprac;
 
 import java.util.Arrays;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -28,6 +30,8 @@ public class StreamsChallengingQuestions {
 
 
     public static void main(String[] args) {
+//        ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+//        lock.readLock().lock();
 //        ReverseEachWordInAString();
         fibonacciUsingStream();
     }

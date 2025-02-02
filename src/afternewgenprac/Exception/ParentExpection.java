@@ -1,6 +1,4 @@
-package afternewgenprac.DSA.Exception;
-
-import java.io.IOException;
+package afternewgenprac.Exception;
 
 public class ParentExpection {
 
