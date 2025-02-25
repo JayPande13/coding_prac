@@ -7,19 +7,19 @@ public class BinarySearchTree {
 
     static class Pair{
         int level;
-        TreeNode next;
+        TreeNode node;
 
         public int getLevel() {
             return level;
         }
 
         public TreeNode getNext() {
-            return next;
+            return node;
         }
 
         public Pair(int level, TreeNode next) {
             this.level = level;
-            this.next = next;
+            this.node = next;
         }
     }
 
@@ -136,7 +136,7 @@ public class BinarySearchTree {
         queue.add(new Pair(0,root));
         while (!queue.isEmpty()) {
             Pair p = queue.poll();
-            TreeNode current = p.next;
+            TreeNode current = p.node;
             if(current != null) {
                 map.putIfAbsent(p.getLevel(),new ArrayList<>());
                 map.get(p.getLevel()).add(current.data);
@@ -158,14 +158,6 @@ public class BinarySearchTree {
         System.out.print(returnList);
     }
 
-    public int RecursiveHeightOfATree(TreeNode root){
-        if(root == null) return 0;
-        int leftHeight = RecursiveHeightOfATree(root.left);
-        int rightHeight = RecursiveHeightOfATree(root.right);
-        return Math.max(leftHeight, rightHeight) + 1;
-
-    }
-
     public void leftViewListCaller(TreeNode root) {
         List<TreeNode> leftViewList = new ArrayList<>();
             leftViewUsingList(root,0,leftViewList);
@@ -185,9 +177,11 @@ public class BinarySearchTree {
 
     public void rightViewListCaller(TreeNode root) {
         Map<Integer,TreeNode> rightViewMap =new HashMap<>();
-        rightViewUsingMap(root,0,rightViewMap);
-        for(TreeNode node : rightViewMap.values()) {
-            System.out.print(node.data + " ");
+        List<Integer> viewList = new ArrayList<>();
+//        rightViewUsingMap(root,0,rightViewMap);
+        rightViewUsingList(root,0,viewList);
+        for(Integer data :viewList) {
+            System.out.print(data + " ");
         };
     }
 
@@ -198,6 +192,20 @@ public class BinarySearchTree {
         rightViewUsingMap(root.right,level+1,rightViewMap);
     }
 
+    public void rightViewUsingList(TreeNode root,int level,List<Integer> rightViewList) {
+        if(root == null) return;
+        if(rightViewList.size() != level){
+            if(rightViewList.get(level) != null){
+                rightViewList.set(level,root.data);
+            }
+        } else{
+            rightViewList.add(root.data);
+        }
+        rightViewUsingList(root.left,level+1,rightViewList);
+        rightViewUsingList(root.right,level+1,rightViewList);
+
+    }
+
     public void rightView(TreeNode root) {
         Queue<Pair> queue = new LinkedList<>();
         Map<Integer,List<Integer>> map = new HashMap<>();
@@ -205,7 +213,7 @@ public class BinarySearchTree {
         queue.add(new Pair(0,root));
         while (!queue.isEmpty()) {
             Pair p = queue.poll();
-            TreeNode current = p.next;
+            TreeNode current = p.node;
             if(current != null) {
                 map.putIfAbsent(p.getLevel(),new ArrayList<>());
                 map.get(p.getLevel()).add(current.data);
@@ -239,21 +247,120 @@ public class BinarySearchTree {
         return Math.abs(leftHeight - rightHeight) + 1 ;
     }
 
-//    public TreeNode RemoveNode(TreeNode root, int val) {
-//
-//    }
+    public TreeNode RemoveNode(TreeNode root, int val) {
+        if(root == null) return null;
+        TreeNode foundNode = null;
+        if(root.data > val) {
+            root.left = RemoveNode(root.left,val);
+        }else if(root.data < val) {
+            root.right = RemoveNode(root.right,val);
+        }else{
+            if(root.left == null && root.right == null) {
+                int leftMax  = findMax(root.left);
+                root.data = leftMax;
+                root.left = RemoveNode(root.left,leftMax);
+                return root;
+            }else if(root.left != null) {
+                return root.left;
+            }else if(root.right != null) {
+                return root.right;
+            }else{
+                return null;
+            }
+        }
+        return root;
+
+    }
+
+    public Integer findMax(TreeNode root) {
+        if(root == null) return Integer.MIN_VALUE;
+        Integer left = findMax(root.left);
+        left = Math.max(root.data,left);
+        Integer right = findMax(root.right);
+        return Math.max(left,right);
+    }
+
+    public List<Integer> verticalOrderTraversal(TreeNode root) {
+        Queue<Pair> queue = new LinkedList<>();
+        List<Integer> verticalList = new ArrayList<>();
+        Map<Integer, List<Integer>> map = new TreeMap<>();
+        //here level in the pair class is the HORIZONTAL (x-axis -> -1,0,1) distance not vertical (not the level)
+        queue.add(new Pair(0,root));
+        while(!queue.isEmpty()){
+            Pair p = queue.poll();
+            map.putIfAbsent(p.level,new ArrayList<>());
+            map.get(p.level).add(p.node.data);
+            if(p.node.left != null){
+                queue.add(new Pair(p.level-1,p.node.left));
+            }
+            if(p.node.right != null){
+                queue.add(new Pair(p.level+1,p.node.right));
+            }
+        }
+        for(Map.Entry<Integer, List<Integer>> m : map.entrySet()){
+            verticalList.addAll(m.getValue());
+        }
+        return verticalList;
+    }
+
+    public List<Integer> topViewUsingPairMap(TreeNode root) {
+        Queue<Pair> queue = new LinkedList<>();
+        Map<Integer,Integer> map = new TreeMap<>();
+        //here level in the pair class is the HORIZONTAL (x-axis -> -1,0,1) distance not vertical (not the level)
+        queue.add(new Pair(0,root));
+        while(!queue.isEmpty()) {
+            Pair p = queue.poll();
+            if(!map.containsKey(p.level)){
+                map.put(p.level,p.node.data);
+            }
+            if(p.node.left != null){
+                queue.add(new Pair(p.level-1,p.node.left));
+            }
+            if(p.node.right != null){
+                queue.add(new Pair(p.level+1,p.node.right));
+            }
+        }
+
+        List<Integer> topViewList = new ArrayList<>(map.values());
+
+        return topViewList;
+
+    }
+
+    public List<Integer> bottomViewUsingPairMap(TreeNode root) {
+        Queue<Pair> queue = new LinkedList<>();
+        Map<Integer,Integer> map = new TreeMap<>();
+        queue.add(new Pair(0,root));
+        while(!queue.isEmpty()) {
+            Pair p = queue.poll();
+            map.put(p.level,p.node.data);
+            if(p.node.left != null){
+                queue.add(new Pair(p.level-1,p.node.left));
+            }
+            if(p.node.right != null){
+                queue.add(new Pair(p.level+1,p.node.right));
+            }
+        }
+        List<Integer> bottomViewList = new ArrayList<>(map.values());
+        return bottomViewList;
+
+    }
 
     public static void main(String[] args) {
         BinarySearchTree bt = new BinarySearchTree();
-        tree tree = new tree();
-        tree.createTree();
-        bt.insert(3);
-        bt.insert(2);
-        bt.insert(1);
-        bt.insert(4);
-        bt.insert(5);
+//        tree tree = new tree();
+//        tree.createTree();
         bt.insert(6);
+        bt.insert(3);
+        bt.insert(9);
+        bt.insert(2);
+        bt.insert(4);
+        bt.insert(1);
+        bt.insert(5);
         bt.insert(7);
+        bt.insert(10);
+        bt.insert(8);
+//        System.out.println(bt.findMax(bt.root));
 //        bt.IterativeLevelOrder(bt.root);
 //        System.out.println();
 //        TreeNode foundNode = bt.IterativeSearchInBinarySearchTree(bt.root, 4);
@@ -270,7 +377,11 @@ public class BinarySearchTree {
 //        System.out.println();
 //        bt.rightViewListCaller(bt.root);
 //        System.out.println();
-        System.out.println(bt.isBalancedTreeCaller(bt.root));
+//        bt.rightViewListCaller(bt.root);
+//        System.out.println(bt.isBalancedTreeCaller(bt.root));
+//        System.out.println(bt.verticalOrderTraversal(bt.root));
+//        System.out.println(bt.topViewUsingPairMap(bt.root));
+        System.out.println(bt.bottomViewUsingPairMap(bt.root));
     }
 
 }

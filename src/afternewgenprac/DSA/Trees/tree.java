@@ -54,7 +54,7 @@ public class tree {
     public void RecursiveInOrder(TreeNode root){ // L->T->R
         if(root == null) return;
         RecursiveInOrder(root.left);
-        System.out.print(root.data + " f");
+        System.out.print(root.data + " ");
         RecursiveInOrder(root.right);
     }
 
@@ -82,7 +82,7 @@ public class tree {
         System.out.print(root.data + " ");
     }
 
-    public void IterativePostOrder(TreeNode root){
+    public void IterativePostOrder(TreeNode root){ //L R T
         if(root == null) return;
         Stack<TreeNode> stack = new Stack<>();
         TreeNode currNode = root;
@@ -192,7 +192,7 @@ public class tree {
 //        tree.IterativeLevelOrder(tree.root);
 //        tree.IterativeMaximumValueInABinaryTree(tree.root);
 //        System.out.println(tree.RecursiveMaximumValueInABinaryTree(tree.root));
-        tree.RecursiveLevelOrderCallMethod(tree.root);
+//        tree.RecursiveLevelOrderCallMethod(tree.root);
     }
 
 

@@ -13,8 +13,10 @@ public class MoveZeroToFront {
                     nums[j] = nums[i];
                     nums[i] = temp;
                     i--;
+                    j--;
+                }else{
+                    j--;
                 }
-                j--;
             } else {
                 i--;
                 j--;

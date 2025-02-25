@@ -1,6 +1,6 @@
 package afternewgenprac.DSA.LinkedList;
 
-import CodingSecondTimeForPRac.HashMap;
+import java.util.Stack;
 
 public class RemoveNthNodeFromBack {
 
@@ -179,4 +179,5 @@ public class RemoveNthNodeFromBack {
         reverseLLList(ln1);
 
     }
+
 }
