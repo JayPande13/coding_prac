@@ -19,6 +19,10 @@ public class Child extends Parent {
 
     }
 
+    public static void up(){
+        System.out.println("Up");
+    }
+
     @Override
     public void close() throws Exception {
         System.out.println("test");
